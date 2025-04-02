@@ -2,6 +2,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+	body{
+	text-align:center
+	}
+	
+	table{
+	margin:auto;
+	width: 40%
+	}
+</style>
 <meta charset="UTF-8">
 <title>insertPollForm</title>
 </head>
