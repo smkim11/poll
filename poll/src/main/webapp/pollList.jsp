@@ -2,6 +2,8 @@
 <%@ page import="dto.*" %>
 <%@ page import="model.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="java.time.*"%>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%
 	// question 테이블 리스트 -> 페이징 -> title링크(startdate<=오늘날짜<=enddate) -> 투표프로그램
 	// QuestionDao.selectQuestionList(Paging)
@@ -18,11 +20,14 @@
 	ArrayList<Question> list = questionDao.selectQuestionList(paging);
 	int lastPage = paging.getLastPage(questionDao.questionTotalRow());
 	
-	Calendar c = Calendar.getInstance();
-	int todayYear = c.get(Calendar.YEAR);
-	int todayMonth = c.get(Calendar.MONTH)+1;
-	int todayDate = c.get(Calendar.DATE);
-	System.out.println(todayMonth);
+	Item i = new Item();
+	
+	ItemDao id = new ItemDao();
+	
+	// 오늘 날짜
+	LocalDate today = LocalDate.now();
+	
+	System.out.println(today);
 %>
 <!DOCTYPE html>
 <html>
@@ -44,6 +49,7 @@
 	<h1>설문리스트</h1>
 	<!--  foreach문 ArrayList<Question> list 출력 title
 	링크(startdate <= 오늘날짜 <= enddate) 투표시작전, 투표종료, 투표하기 -->
+	<a href="/poll/insertPollForm.jsp">투표작성하기</a>
 	<table border="1">
 		<tr>
 			<th>번호</th>
@@ -51,6 +57,10 @@
 			<th>시작일</th>
 			<th>종료일</th>
 			<th>투표</th>
+			<th>삭제</th>
+			<th>수정</th>
+			<th>종료일수정</th>
+			<th>결과</th>
 		</tr>
 		<%
 			for(Question q : list){
@@ -62,19 +72,66 @@
 					<td><%=q.getStartdate() %></td>
 					<td><%=q.getEnddate() %></td>
 					<td>
+					<!-- 오늘날짜가 투표기간안에 들어가면 투표하기 링크 표시 -->
 					<%
-						if((Integer.valueOf(q.getStartdate().substring(0,4))<=todayYear 
-						&& Integer.valueOf(q.getStartdate().substring(5,7))<=todayMonth
-						&& Integer.valueOf(q.getStartdate().substring(8))<=todayDate) ||
-						 (todayYear<=Integer.valueOf(q.getEnddate().substring(0,4))
-						&&todayMonth<=Integer.valueOf(q.getEnddate().substring(5,7))
-						&&todayDate<=Integer.valueOf(q.getEnddate().substring(8)))){
+						LocalDate startDate = LocalDate.parse(q.getStartdate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+						LocalDate endDate = LocalDate.parse(q.getEnddate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+						if((startDate.isBefore(today) || startDate.isEqual(today))
+							&& (endDate.isAfter(today)|| endDate.isEqual(today))){
 					%>
 							<a href="/poll/pollList.jsp">투표하기</a>
 					<% 
 						}else{
 					%>
 							투표기간X
+					<% 
+						}
+					%>
+					</td>
+					<td>
+					<!-- count값이 0이면 삭제링크 표시 -->
+					<%
+						i.setQnum(q.getNum());
+						if(id.sumCount(i)==0){
+					%>
+							<a href="/poll/deletePoll.jsp?num=<%=q.getNum()%>">삭제</a>
+					<% 
+						}else{
+					%>
+							삭제불가
+					<% 
+						}
+					%>
+						
+					</td>
+					<td>
+						<a href="/poll/updatePollForm.jsp?num=<%=q.getNum()%>">수정</a>
+					</td>
+					<td>
+					<!-- 종료날짜가 지나지 않았으면 수정 링크 표시 -->
+					<%
+						if(endDate.isAfter(today)|| endDate.isEqual(today)){
+					%>
+							<a href="/poll/updateQuestionEnddateForm.jsp?num=<%=q.getNum()%>">종료일수정</a>
+					<% 
+						}else{
+					%>
+							수정 불가
+					<% 
+						}
+					%>
+						
+					</td>
+					<td>
+					<!-- 종료날짜가 지났으면 링크 표시 -->
+					<%
+						if(today.isAfter(endDate)){
+					%>
+							<a href="/poll/pollList.jsp">보기</a>
+					<% 
+						}else{
+					%>
+							
 					<% 
 						}
 					%>
