@@ -21,12 +21,10 @@
 	int lastPage = paging.getLastPage(questionDao.questionTotalRow());
 	
 	Item i = new Item();
-	
 	ItemDao id = new ItemDao();
 	
 	// 오늘 날짜
 	LocalDate today = LocalDate.now();
-	
 	System.out.println(today);
 %>
 <!DOCTYPE html>
@@ -76,14 +74,17 @@
 					<%
 						LocalDate startDate = LocalDate.parse(q.getStartdate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 						LocalDate endDate = LocalDate.parse(q.getEnddate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-						if((startDate.isBefore(today) || startDate.isEqual(today))
-							&& (endDate.isAfter(today)|| endDate.isEqual(today))){
+						if(today.compareTo(startDate) < 0){
 					%>
-							<a href="/poll/pollList.jsp">투표하기</a>
+							투표전
+					<% 
+						}else if(today.compareTo(endDate)>0){
+					%>
+							투표종료
 					<% 
 						}else{
 					%>
-							투표기간X
+							<a href="/poll/pollList.jsp">투표하기</a>
 					<% 
 						}
 					%>
@@ -124,7 +125,7 @@
 					<td>
 					<!-- 종료날짜가 지나지 않았으면 수정 링크 표시 -->
 					<%
-						if(endDate.isAfter(today)|| endDate.isEqual(today)){
+						if(endDate.compareTo(today)>=0){
 					%>
 							<a href="/poll/updateQuestionEnddateForm.jsp?num=<%=q.getNum()%>">종료일수정</a>
 					<% 
@@ -139,7 +140,7 @@
 					<td>
 					<!-- 종료날짜가 지났으면 링크 표시 -->
 					<%
-						if(today.isAfter(endDate)){
+						if(endDate.compareTo(today)<0){
 					%>
 							<a href="/poll/pollList.jsp">보기</a>
 					<% 
@@ -167,7 +168,7 @@
 		if(currentPage<lastPage){
 	%>
 			<a href="/poll/pollList.jsp?currentPage=<%=currentPage+1 %>">[다음]</a>
-			<a href="/poll/pollList.jsp?currentPage=<%=lastPage%>">[마지막]]</a>
+			<a href="/poll/pollList.jsp?currentPage=<%=lastPage%>">[마지막]</a>
 	<% 
 		}
 	%>
