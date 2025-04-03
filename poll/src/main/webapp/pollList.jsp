@@ -105,8 +105,11 @@
 						
 					</td>
 					<td>
+					<!-- 참여자가 있거나 투표기간이 지났으면 수정 불가 -->
 						<%
-							if(id.sumCount(i) == 0){
+							if(id.sumCount(i) == 0 
+								&& (startDate.isBefore(today) || startDate.isEqual(today))
+								&& (endDate.isAfter(today)|| endDate.isEqual(today))){
 						%>
 								<a href="/poll/updatePollForm.jsp?num=<%=q.getNum()%>">수정</a>
 						<% 
