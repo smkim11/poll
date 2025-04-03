@@ -6,16 +6,14 @@
 	Integer num = Integer.valueOf(request.getParameter("num"));
 
 	Question q = new Question();
-	q.setNum(num);
 	Item i = new Item();
-	i.setQnum(num);
-	
+
 	QuestionDao qd = new QuestionDao();
 	ItemDao id = new ItemDao();
 	
 	// 자식 테이블 먼저 삭제 후 부모 테이블 삭제
 	id.deleteItem(num);
-	qd.deleteQuestion(q);
+	qd.deleteQuestion(num);
 	
 	
 	response.sendRedirect("/poll/pollList.jsp");

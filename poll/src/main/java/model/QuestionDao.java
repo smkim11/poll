@@ -70,12 +70,12 @@ public class QuestionDao {
 	}
 	
 	// 설문 삭제 메소드
-	public int deleteQuestion(Question q) throws ClassNotFoundException, SQLException {
+	public int deleteQuestion(int num) throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/poll", "root", "java1234");
 		String sql ="delete from question where num=?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, q.getNum());
+		stmt.setInt(1, num);
 		
 		int row = stmt.executeUpdate();
 		
