@@ -1,8 +1,11 @@
 package model;
 import java.sql.*;
+import java.util.*;
 import dto.*;
 // Table : item crud
 public class ItemDao {
+	
+	// 생성 메소드
 	public void insertItem(Item item) throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/poll", "root", "java1234");
@@ -21,4 +24,53 @@ public class ItemDao {
 		}
 		conn.close();
 	}
+	
+	// 삭제하는 메소드
+	public int deleteItem(int num) throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/poll", "root", "java1234");
+		String sql ="delete from item where qnum=?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, num);
+		
+		int row = stmt.executeUpdate();
+		
+		conn.close();
+		return row;
+	}
+	
+	// item 테이블에서 content값을 가져오는 메소드
+	public ArrayList<Item> itemList(int num) throws ClassNotFoundException, SQLException{
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/poll", "root", "java1234");
+		String sql ="select content from item where qnum=?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, num);
+		ResultSet rs = stmt.executeQuery();
+		ArrayList<Item> list = new ArrayList<>();
+		while(rs.next()) {
+			Item i = new Item();
+			i.setContent(rs.getString("content"));
+			
+			list.add(i);
+		}
+		
+		conn.close();
+		return list;
+	}
+	
+	// 투표 참여인원이 있는지 확인하는 메소드
+	public int sumCount(Item i) throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/poll", "root", "java1234");
+		String sql ="SELECT SUM(COUNT) count FROM item where qnum = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, i.getQnum());
+		ResultSet rs = stmt.executeQuery();
+		rs.next();
+		int count = rs.getInt("count");
+		
+		return count;
+	}
+	
 }
