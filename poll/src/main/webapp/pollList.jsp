@@ -105,7 +105,18 @@
 						
 					</td>
 					<td>
-						<a href="/poll/updatePollForm.jsp?num=<%=q.getNum()%>">수정</a>
+						<%
+							if(id.sumCount(i) == 0){
+						%>
+								<a href="/poll/updatePollForm.jsp?num=<%=q.getNum()%>">수정</a>
+						<% 
+							}else{
+						%>
+								수정불가
+						<% 
+							}
+						%>
+						
 					</td>
 					<td>
 					<!-- 종료날짜가 지나지 않았으면 수정 링크 표시 -->
