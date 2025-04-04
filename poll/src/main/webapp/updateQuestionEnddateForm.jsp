@@ -12,6 +12,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- Latest compiled and minified CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 	body{
 	text-align:center
@@ -28,7 +33,7 @@
 <body>
 <h1>종료일수정</h1>
 <form method = "post" action="/poll/updateQuestionEnddateAction.jsp">
-<table border="1">
+<table class="table table-striped table-bordered table-hover">
 
 	<%
 		for(Question question : list){

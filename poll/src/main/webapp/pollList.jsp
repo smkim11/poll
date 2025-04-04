@@ -31,6 +31,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- Latest compiled and minified CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 	body{
 	text-align:center
@@ -38,24 +43,29 @@
 	
 	table{
 	margin:auto;
-	width: 60%
+	width: 40%
 	}
 </style>
 <meta charset="UTF-8">
 <title></title>
 </head>
+
 <body>
+<!-- nav.jsp 인클루드 -->
+	<div class="nav nav-pills">
+		<jsp:include page="/inc/nav.jsp"></jsp:include>
+	</div>
 	<h1>설문리스트</h1>
 	<!--  foreach문 ArrayList<Question> list 출력 title
 	링크(startdate <= 오늘날짜 <= enddate) 투표시작전, 투표종료, 투표하기 -->
 	<a href="/poll/insertPollForm.jsp">투표작성하기</a>
-	<table border="1">
+	<table class="table table-striped table-bordered table-hover">
 		<tr>
 			<th>번호</th>
 			<th>제목</th>
 			<th>시작일</th>
 			<th>종료일</th>
-			<th>참여인원</th>
+			<th>참여횟수</th>
 			<th>투표</th>
 			<th>삭제</th>
 			<th>수정</th>
@@ -71,7 +81,7 @@
 					<td><%=map.get("title") %></td>
 					<td><%=map.get("startdate") %></td>
 					<td><%=map.get("enddate") %></td>
-					<td><%=map.get("cnt") %></td>
+					<td><%=map.get("cnt") %>번</td>
 					<td>
 					<!-- 오늘날짜가 투표기간안에 들어가면 투표하기 링크 표시 -->
 					<%
@@ -87,7 +97,7 @@
 					<% 
 						}else{
 					%>
-							<a href="/poll/updateItemForm.jsp?num=<%=map.get("num")%>">투표하기</a>
+							<a href="/poll/updateItemForm.jsp?num=<%=map.get("num")%>" class="btn btn-outline-primary">투표하기</a>
 					<% 
 						}
 					%>
@@ -95,9 +105,9 @@
 					<td>
 					<!-- count값이 0이면 삭제링크 표시 -->
 					<%
-						if((Integer)(map.get("num"))==0){
+						if((Integer)(map.get("cnt"))==0){
 					%>
-							<a href="/poll/deletePoll.jsp?num=<%=map.get("num")%>">삭제</a>
+							<a href="/poll/deletePoll.jsp?num=<%=map.get("num")%>" class="btn btn-outline-danger">삭제</a>
 					<% 
 						}else{
 					%>
@@ -110,11 +120,11 @@
 					<td>
 					<!-- 참여자가 있거나 투표기간이 지났으면 수정 불가 -->
 						<%
-							if((Integer)(map.get("num")) == 0 
+							if((Integer)(map.get("cnt")) == 0 
 								&& (startDate.isBefore(today) || startDate.isEqual(today))
 								&& (endDate.isAfter(today)|| endDate.isEqual(today))){
 						%>
-								<a href="/poll/updatePollForm.jsp?num=<%=map.get("num")%>">수정</a>
+								<a href="/poll/updatePollForm.jsp?num=<%=map.get("num")%>" class="btn btn-outline-primary">수정</a>
 						<% 
 							}else{
 						%>
@@ -129,7 +139,7 @@
 					<%
 						if(endDate.compareTo(today)>=0){
 					%>
-							<a href="/poll/updateQuestionEnddateForm.jsp?num=<%=map.get("num")%>">종료일수정</a>
+							<a href="/poll/updateQuestionEnddateForm.jsp?num=<%=map.get("num")%>" class="btn btn-outline-primary" >종료일수정</a>
 					<% 
 						}else{
 					%>
@@ -144,7 +154,7 @@
 					<%
 						if(endDate.compareTo(today)<0){
 					%>
-							<a href="/poll/pollList.jsp">보기</a>
+							<a href="/poll/questionOneResult.jsp?num=<%=map.get("num")%>" class="btn btn-outline-primary ">보기</a>
 					<% 
 						}else{
 					%>

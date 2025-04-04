@@ -35,6 +35,11 @@
 <meta charset="UTF-8">
 <title></title>
 </head>
+<!-- Latest compiled and minified CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- nav.jsp 인클루드 -->
 	<div>
 		<jsp:include page="/inc/nav.jsp"></jsp:include>
@@ -42,7 +47,7 @@
 <body>
 	
 	<h1><%=num %>번 설문 투표결과</h1>
-	<table border="1">
+	<table class="table table-striped table-bordered table-hover">
 		<tr>
 			<td colspan="4">
 				Q : <%=q.getTitle() %>
