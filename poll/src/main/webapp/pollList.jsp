@@ -17,7 +17,8 @@
 	paging.setRowPerPage(rowPerPage);
 	
 	QuestionDao questionDao = new QuestionDao();
-	ArrayList<Question> list = questionDao.selectQuestionList(paging);
+	//ArrayList<Question> list = questionDao.selectQuestionList(paging);
+	ArrayList<HashMap<String,Object>> list = questionDao.selectQuestionList(paging);
 	int lastPage = paging.getLastPage(questionDao.questionTotalRow());
 	
 	Item i = new Item();
@@ -37,7 +38,7 @@
 	
 	table{
 	margin:auto;
-	width: 50%
+	width: 60%
 	}
 </style>
 <meta charset="UTF-8">
@@ -54,6 +55,7 @@
 			<th>제목</th>
 			<th>시작일</th>
 			<th>종료일</th>
+			<th>참여인원</th>
 			<th>투표</th>
 			<th>삭제</th>
 			<th>수정</th>
@@ -61,19 +63,20 @@
 			<th>결과</th>
 		</tr>
 		<%
-			for(Question q : list){
-				
+			
+			for(HashMap<String,Object> map : list){
 		%>
 				<tr>
-					<td><%=q.getNum() %></td>
-					<td><%=q.getTitle() %></td>
-					<td><%=q.getStartdate() %></td>
-					<td><%=q.getEnddate() %></td>
+					<td><%=map.get("num") %></td>
+					<td><%=map.get("title") %></td>
+					<td><%=map.get("startdate") %></td>
+					<td><%=map.get("enddate") %></td>
+					<td><%=map.get("cnt") %></td>
 					<td>
 					<!-- 오늘날짜가 투표기간안에 들어가면 투표하기 링크 표시 -->
 					<%
-						LocalDate startDate = LocalDate.parse(q.getStartdate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-						LocalDate endDate = LocalDate.parse(q.getEnddate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+						LocalDate startDate = LocalDate.parse((String)(map.get("startdate")), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+						LocalDate endDate = LocalDate.parse((String)(map.get("enddate")), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 						if(today.compareTo(startDate) < 0){
 					%>
 							투표전
@@ -84,7 +87,7 @@
 					<% 
 						}else{
 					%>
-							<a href="/poll/pollList.jsp">투표하기</a>
+							<a href="/poll/updateItemForm.jsp?num=<%=map.get("num")%>">투표하기</a>
 					<% 
 						}
 					%>
@@ -92,10 +95,9 @@
 					<td>
 					<!-- count값이 0이면 삭제링크 표시 -->
 					<%
-						i.setQnum(q.getNum());
-						if(id.sumCount(i)==0){
+						if((Integer)(map.get("num"))==0){
 					%>
-							<a href="/poll/deletePoll.jsp?num=<%=q.getNum()%>">삭제</a>
+							<a href="/poll/deletePoll.jsp?num=<%=map.get("num")%>">삭제</a>
 					<% 
 						}else{
 					%>
@@ -108,11 +110,11 @@
 					<td>
 					<!-- 참여자가 있거나 투표기간이 지났으면 수정 불가 -->
 						<%
-							if(id.sumCount(i) == 0 
+							if((Integer)(map.get("num")) == 0 
 								&& (startDate.isBefore(today) || startDate.isEqual(today))
 								&& (endDate.isAfter(today)|| endDate.isEqual(today))){
 						%>
-								<a href="/poll/updatePollForm.jsp?num=<%=q.getNum()%>">수정</a>
+								<a href="/poll/updatePollForm.jsp?num=<%=map.get("num")%>">수정</a>
 						<% 
 							}else{
 						%>
@@ -127,7 +129,7 @@
 					<%
 						if(endDate.compareTo(today)>=0){
 					%>
-							<a href="/poll/updateQuestionEnddateForm.jsp?num=<%=q.getNum()%>">종료일수정</a>
+							<a href="/poll/updateQuestionEnddateForm.jsp?num=<%=map.get("num")%>">종료일수정</a>
 					<% 
 						}else{
 					%>

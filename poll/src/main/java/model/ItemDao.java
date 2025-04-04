@@ -58,19 +58,4 @@ public class ItemDao {
 		conn.close();
 		return list;
 	}
-	
-	// 투표 참여인원이 있는지 확인하는 메소드
-	public int sumCount(Item i) throws ClassNotFoundException, SQLException {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/poll", "root", "java1234");
-		String sql ="SELECT SUM(COUNT) count FROM item where qnum = ?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, i.getQnum());
-		ResultSet rs = stmt.executeQuery();
-		rs.next();
-		int count = rs.getInt("count");
-		
-		return count;
-	}
-	
 }

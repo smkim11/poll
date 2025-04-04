@@ -96,13 +96,20 @@ public class QuestionDao {
 		conn.close();
 		return total;
 	}
-	
-	public ArrayList<Question> selectQuestionList(Paging p) throws ClassNotFoundException, SQLException{
+
+	// 테이블을 조인하여 question 정보와 투표인원 총합을 가져오는 메소드
+	public ArrayList<HashMap<String,Object>> selectQuestionList(Paging p) throws ClassNotFoundException, SQLException{
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/poll", "root", "java1234");
 		PreparedStatement stmt = null;
 		
-		String sql = "select num, title, startdate, enddate from question order by num desc limit ?,?";
+		String sql = "SELECT q.num, q.title, q.startdate, q.enddate, t.cnt "
+					+ "FROM question q "
+					+ "INNER JOIN (SELECT qnum, SUM(COUNT) cnt "
+					+ "FROM item GROUP BY qnum)t "
+					+ "ON q.num = t.qnum "
+					+ "order by num desc "
+					+ "LIMIT ?,?";
 
 		stmt=conn.prepareStatement(sql);
 		stmt.setInt(1, p.getBeginRow());
@@ -110,20 +117,21 @@ public class QuestionDao {
 		
 		ResultSet rs= stmt.executeQuery();
 	
-		ArrayList<Question> list = new ArrayList<>();
+		ArrayList<HashMap<String,Object>> list = new ArrayList<>();
 		while(rs.next()) {
-			Question q = new Question();
-			q.setNum(rs.getInt("num"));
-			q.setTitle(rs.getString("title"));
-			q.setStartdate(rs.getString("startdate"));
-			q.setEnddate(rs.getString("enddate"));
+			HashMap<String,Object> map = new HashMap<>();
+			map.put("num", rs.getInt("num"));
+			map.put("title", rs.getString("title"));
+			map.put("startdate", rs.getString("startdate"));
+			map.put("enddate", rs.getString("enddate"));
+			map.put("cnt", rs.getInt("cnt"));
 			
-			list.add(q);
+			list.add(map);
 		}
 		conn.close();
 		return list;
 	}
-	
+
 	// 입력 후 자동으로 생성된 키값을 반환
 	public int insertQuestion(Question question) throws ClassNotFoundException, SQLException {
 		int pk = 0;
