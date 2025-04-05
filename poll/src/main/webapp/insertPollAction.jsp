@@ -12,7 +12,7 @@
 	
 	// item.content
 	String[] content = request.getParameterValues("content");
-	// 공백요소 제거 후 새로운 배열(ArrayList)에 저장
+	// content들 중 공백요소 제거 후 새로운 배열(contentList)에 저장
 	// ex) "a", "b", "c", 
 	ArrayList<String> contentList = new ArrayList<>();
 	for(String c : content){
@@ -30,8 +30,10 @@
 		
 	// 2. Question 모델(DAO메소드) 호출
 	QuestionDao questionDao = new QuestionDao();
+	// question값들을 입력하고 pk값을 qnum에 저장
 	int qnum = questionDao.insertQuestion(question);
 	
+	// item값을 저장하기위해 itemList생성 순서대로 inum-1에는 첫번째 content, inum-2에는 두번째 content...
 	ArrayList<Item> itemList = new ArrayList<>();
 	int i=1;
 	for(String c : contentList){
@@ -46,6 +48,7 @@
 
 	// 2-1. Item 모델(DAO메소드) 호출
 	ItemDao itemDao = new ItemDao();
+	// content 개수만큼 추가
 	for(Item item : itemList){
 		itemDao.insertItem(item);
 	}
