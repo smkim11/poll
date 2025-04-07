@@ -21,6 +21,10 @@
 <title>insertPollForm</title>
 </head>
 <body>
+<!-- nav.jsp 인클루드 -->
+	<div>
+		<jsp:include page="/inc/nav.jsp"></jsp:include>
+	</div><br>
 	<h1>투표프로그램</h1>
 	<hr>
 	<h2>설문작성</h2>
@@ -68,7 +72,6 @@
 		</table>
 		<button type="submit">작성하기</button>
 		<button type="reset">다시쓰기</button>
-		<a href="/poll/pollList.jsp">리스트</a>
 	</form>
 </body>
 </html>

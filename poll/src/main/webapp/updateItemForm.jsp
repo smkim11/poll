@@ -40,6 +40,10 @@
 <title></title>
 </head>
 <body>
+<!-- nav.jsp 인클루드 -->
+	<div>
+		<jsp:include page="/inc/nav.jsp"></jsp:include>
+	</div><br>
 	<h1>투표하기</h1>
 	<form action="/poll/updateItemAction.jsp" method="post">
 	<table class="table table-striped table-bordered table-hover">

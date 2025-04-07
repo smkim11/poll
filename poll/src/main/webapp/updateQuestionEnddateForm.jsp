@@ -7,7 +7,7 @@
 
 	Question q = new Question();
 	QuestionDao qd = new QuestionDao();
-	ArrayList<Question> list = qd.questionList(num);
+	q = qd.selectQuestionOne(num);
 %>
 <!DOCTYPE html>
 <html>
@@ -31,23 +31,20 @@
 <title></title>
 </head>
 <body>
+<!-- nav.jsp 인클루드 -->
+<div>
+	<jsp:include page="/inc/nav.jsp"></jsp:include>
+</div><br>
 <h1>종료일수정</h1>
 <form method = "post" action="/poll/updateQuestionEnddateAction.jsp">
-<table class="table table-striped table-bordered table-hover">
-
-	<%
-		for(Question question : list){
-	%>
-			<tr>
-				<input type="hidden" name="num" value="<%=num%>">
-				<td>종료일</td>
-				<td><input type="date" name="enddate" value="<%=question.getEnddate()%>"></td>
-			</tr>
-	<% 
-		}
-	%>
-</table>
-<button type="submit">수정</button>
+	<table class="table table-striped table-bordered table-hover">
+		<tr>
+			<input type="hidden" name="num" value="<%=num%>">
+			<td>종료일</td>
+			<td><input type="date" name="enddate" value="<%=q.getEnddate()%>"></td>
+		</tr>
+	</table>
+	<button type="submit">수정</button>
 </form>		
 </body>
 </html>
