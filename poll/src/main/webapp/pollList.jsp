@@ -17,8 +17,10 @@
 	paging.setRowPerPage(rowPerPage);
 	
 	QuestionDao questionDao = new QuestionDao();
-	//ArrayList<Question> list = questionDao.selectQuestionList(paging);
-	ArrayList<HashMap<String,Object>> list = questionDao.selectQuestionList(paging);
+	
+	// question테이블의 정보와 item테이블의 qnum별 투표수 총합을 list에 저장
+	ArrayList<HashMap<String,Object>> list = new ArrayList<>();
+	list = questionDao.selectQuestionList(paging);
 	int lastPage = paging.getLastPage(questionDao.questionTotalRow());
 	
 	Item i = new Item();
@@ -52,19 +54,19 @@
 
 <body>
 <!-- nav.jsp 인클루드 -->
-	<div class="nav nav-pills">
+	<div>
 		<jsp:include page="/inc/nav.jsp"></jsp:include>
-	</div>
-	<h1>설문리스트</h1>
+	</div><br>
+	<h1>설문리스트</h1><br>
 	<!--  foreach문 ArrayList<Question> list 출력 title
 	링크(startdate <= 오늘날짜 <= enddate) 투표시작전, 투표종료, 투표하기 -->
-	<a href="/poll/insertPollForm.jsp">투표작성하기</a>
 	<table class="table table-striped table-bordered table-hover">
 		<tr>
 			<th>번호</th>
 			<th>제목</th>
 			<th>시작일</th>
 			<th>종료일</th>
+			<th>복수투표</th>
 			<th>참여횟수</th>
 			<th>투표</th>
 			<th>삭제</th>
@@ -81,6 +83,19 @@
 					<td><%=map.get("title") %></td>
 					<td><%=map.get("startdate") %></td>
 					<td><%=map.get("enddate") %></td>
+					<td>
+						<%
+							if((Integer)map.get("type")==0){
+						%>
+								불가능
+						<% 
+							}else{
+						%>	
+								가능
+						<% 
+							}
+						%>
+					</td>
 					<td><%=map.get("cnt") %>번</td>
 					<td>
 					<!-- 오늘날짜가 투표기간안에 들어가면 투표하기 링크 표시 -->
@@ -156,9 +171,13 @@
 					%>
 							<a href="/poll/questionOneResult.jsp?num=<%=map.get("num")%>" class="btn btn-outline-primary ">보기</a>
 					<% 
+						}else if(today.compareTo(startDate)<0){
+					%>
+							투표전
+					<% 
 						}else{
 					%>
-							
+							투표진행중
 					<% 
 						}
 					%>
