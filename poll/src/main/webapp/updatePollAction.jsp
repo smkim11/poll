@@ -29,7 +29,7 @@
 	QuestionDao qd = new QuestionDao();
 	qd.updateQuestion(q);
 	
-	
+	// itemList에 수정한 후 남아있는 content 개수만큼 저장 순서대로 inum-1에는 첫번째 content, inum-2에는 두번째 content...
 	ArrayList<Item> itemList = new ArrayList<>();
 	int n=1;
 	for(String c : contentList){
@@ -42,7 +42,9 @@
 		n++;
 	}
 	
-	// item 삭제
+	// qnum에 해당하는 기존 item정보 삭제 후 새로 수정한 item정보를 새로 입력
+	
+	// item 삭제 
 	ItemDao id = new ItemDao();
 	id.deleteItem(num);
 	
