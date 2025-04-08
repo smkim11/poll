@@ -43,6 +43,7 @@
 			<th>제목</th>
 			<th>이름</th>
 			<th>작성일</th>
+			<th>조회수</th>
 		</tr>
 			<%
 				for(Board b : list){
@@ -63,6 +64,7 @@
 						</td>
 						<td><%=b.getName() %></td>
 						<td><%=b.getRegdate() %></td>
+						<td><%=b.getCount() %></td>
 					</tr>
 			<% 
 				}
