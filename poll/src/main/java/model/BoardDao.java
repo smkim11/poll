@@ -193,9 +193,10 @@ public class BoardDao {
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/poll", "root", "java1234");
 		conn.setAutoCommit(false); 
 		
-		String sql = "delete from board where num = ?";
+		String sql = "delete from board where num = ? and pass = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, b.getNum());
+		stmt.setString(2, b.getPass());
 		
 		int row = stmt.executeUpdate();
 		if(row==1) {
