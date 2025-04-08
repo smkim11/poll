@@ -32,17 +32,17 @@
 	<div>
 		<jsp:include page="/inc/nav.jsp"></jsp:include>
 	</div><br>
-	<h1>BoardList</h1>
+	<h1>게시판</h1>
 	<div>
 	
 	</div>
 	<!-- boardList table... -->
 	<table class="w-75 table table-striped table-bordered table-hover">
 		<tr>
-			<th>num</th>
-			<th>subject</th>
-			<th>name</th>
-			<th>regdate</th>
+			<th>번호</th>
+			<th>제목</th>
+			<th>이름</th>
+			<th>작성일</th>
 		</tr>
 			<%
 				for(Board b : list){

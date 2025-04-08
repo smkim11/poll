@@ -34,20 +34,20 @@
 	<div>
 		<jsp:include page="/inc/nav.jsp"></jsp:include>
 	</div><br>
-	<h1>Board Update</h1>
+	<h1>글 수정</h1>
 	<form action="/poll/board/updateBoardReplyAction.jsp">
 	<table class="w-50 table table-striped table-bordered table-hover">
 	<input type="hidden" name="num" value="<%=b.getNum()%>">
 		<tr>
-			<td>name</td>
+			<td>이름</td>
 			<td><input type="text" name="name" value="<%=b.getName()%>"></td>
 		</tr>
 		<tr>
-			<td>subject</td>
+			<td>제목</td>
 			<td><input type="text" name="subject" value="<%=b.getSubject()%>"></td>
 		</tr>
 		<tr>
-			<td>content</td>
+			<td>글</td>
 			<td><textarea name="content" rows="5" cols="50"><%=b.getContent()%></textarea></td>
 		</tr>
 	</table>

@@ -37,22 +37,22 @@
 	<div>
 		<jsp:include page="/inc/nav.jsp"></jsp:include>
 	</div><br>
-	<h1>Board One</h1>
+	<h1>상세보기</h1>
 	<table class="w-75 table table-striped table-bordered table-hover">
 		<tr>
-			<td>num</td>
+			<td>번호</td>
 			<td><%=b.getNum() %></td>
 		</tr>
 		<tr>
-			<td>name</td>
+			<td>이름</td>
 			<td><%=b.getName() %></td>
 		</tr>
 		<tr>
-			<td>subject</td>
+			<td>제목</td>
 			<td><%=b.getSubject() %></td>
 		</tr>
 		<tr>
-			<td>content</td>
+			<td>글</td>
 			<td><%=b.getContent() %></td>
 		</tr>
 		<tr>
@@ -60,16 +60,16 @@
 			<td><%=b.getPos() %>, <%=b.getRef() %>, <%=b.getDepth() %></td>
 		</tr>
 		<tr>
-			<td>regdate</td>
+			<td>작성일</td>
 			<td><%=b.getRegdate() %></td>
 		</tr>
 		<tr>
-			<td>count</td>
+			<td>조회수</td>
 			<td><%=b.getCount() %></td>
 		</tr>
 	</table>
 	<a href="/poll/board/updateBoardReplyForm.jsp?num=<%=b.getNum()%>">수정</a>
-	<a href="/poll/board/deleteBoard.jsp?num=<%=b.getNum()%>&ref=<%=b.getRef()%>">삭제</a>
+	<a href="/poll/board/deleteBoardForm.jsp?num=<%=b.getNum()%>&ref=<%=b.getRef()%>">삭제</a>
 	<a href="/poll/board/insertBoardReplyForm.jsp?ref=<%=b.getRef() %>&pos=<%=b.getPos()%>&depth=<%=b.getDepth()%>">답글</a>
 </body>
 </html>

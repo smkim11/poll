@@ -48,19 +48,19 @@
 				<td><input type="text" name="depth" value="<%=depth%>" readonly></td>
 			</tr>
 			<tr>
-				<td>name</td>
+				<td>이름</td>
 				<td><input type="text" name="name"></td>
 			</tr>
 			<tr>
-				<td>subject</td>
+				<td>제목</td>
 				<td><input type="text" name="subject"></td>
 			</tr>
 			<tr>
-				<td>content</td>
+				<td>글</td>
 				<td><textarea name="content" rows="5" cols="50"></textarea></td>
 			</tr>
 			<tr>
-				<td>pass</td>
+				<td>비밀번호</td>
 				<td><input type="password" name="pass"></td>
 			</tr>
 		</table>
