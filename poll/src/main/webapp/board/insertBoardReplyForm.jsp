@@ -34,7 +34,7 @@
 	</div><br>
 	<h1>댓글입력</h1>
 	<form method="post" action="/poll/board/insertBoardReplyAction.jsp">
-		<table class="table table-striped table-bordered table-hover">
+		<table class="w-75 table table-striped table-bordered table-hover">
 			<tr>
 				<td>ref(부모 ref와 동일)</td>
 				<td><input type="text" name="ref" value="<%=ref%>" readonly></td>

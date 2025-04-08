@@ -50,7 +50,7 @@
 	</div><br>
 	<h1>설문수정</h1>
 		<form method="post" action="/poll/updatePollAction.jsp">
-			<table class="table table-striped table-bordered table-hover">
+			<table class="w-75 table table-striped table-bordered table-hover">
 			<input type="hidden" name="num" value="<%=num%>">
 				<tr>
 					<td>질문</td>

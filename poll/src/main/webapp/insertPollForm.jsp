@@ -29,7 +29,7 @@
 	<hr>
 	<h2>설문작성</h2>
 	<form method="post" action="/poll/insertPollAction.jsp">
-		<table class="table table-striped table-bordered table-hover">
+		<table class="w-75 table table-striped table-bordered table-hover">
 			<tr>
 				<td>질문</td>
 				<td colspan="2">

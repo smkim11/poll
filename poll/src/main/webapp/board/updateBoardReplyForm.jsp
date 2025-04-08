@@ -36,7 +36,7 @@
 	</div><br>
 	<h1>Board Update</h1>
 	<form action="/poll/board/updateBoardReplyAction.jsp">
-	<table class="table table-striped table-bordered table-hover">
+	<table class="w-50 table table-striped table-bordered table-hover">
 	<input type="hidden" name="num" value="<%=b.getNum()%>">
 		<tr>
 			<td>name</td>

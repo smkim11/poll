@@ -27,7 +27,7 @@
 	</div><br>
 	<h1>글입력</h1>
 	<form method="post" action="/poll/board/insertBoardAction.jsp">
-		<table class="table table-striped table-bordered table-hover">
+		<table class="w-50 table table-striped table-bordered table-hover">
 			<tr>
 				<td>name</td>
 				<td><input type="text" name="name"></td>

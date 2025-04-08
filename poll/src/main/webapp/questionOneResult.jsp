@@ -47,7 +47,7 @@
 <body>
 	
 	<h1><%=num %>번 설문 투표결과</h1>
-	<table class="table table-striped table-bordered table-hover">
+	<table class="w-75 table table-striped table-bordered table-hover">
 		<tr>
 			<td colspan="4">
 				Q : <%=q.getTitle() %>

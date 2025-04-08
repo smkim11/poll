@@ -24,16 +24,6 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<style>
-	body{
-	text-align:center
-	}
-	
-	table{
-	margin:auto;
-	width: 40%
-	}
-</style>
 <meta charset="UTF-8">
 <title></title>
 </head>
@@ -47,7 +37,7 @@
 	
 	</div>
 	<!-- boardList table... -->
-	<table class="table table-striped table-bordered table-hover">
+	<table class="w-75 table table-striped table-bordered table-hover">
 		<tr>
 			<th>num</th>
 			<th>subject</th>

@@ -46,7 +46,7 @@
 	</div><br>
 	<h1>투표하기</h1>
 	<form action="/poll/updateItemAction.jsp" method="post">
-	<table class="table table-striped table-bordered table-hover">
+	<table class="w-50 table table-striped table-bordered table-hover">
 	<input type="hidden" name="num" value="<%=num%>">
 		<tr>
 			<td>

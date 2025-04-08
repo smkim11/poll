@@ -60,7 +60,7 @@
 	<h1>설문리스트</h1><br>
 	<!--  foreach문 ArrayList<Question> list 출력 title
 	링크(startdate <= 오늘날짜 <= enddate) 투표시작전, 투표종료, 투표하기 -->
-	<table class="table table-striped table-bordered table-hover">
+	<table class="w-75 table table-striped table-bordered table-hover">
 		<tr>
 			<th>번호</th>
 			<th>제목</th>

@@ -37,7 +37,7 @@
 </div><br>
 <h1>종료일수정</h1>
 <form method = "post" action="/poll/updateQuestionEnddateAction.jsp">
-	<table class="table table-striped table-bordered table-hover">
+	<table class="w-50 table table-striped table-bordered table-hover">
 		<tr>
 			<input type="hidden" name="num" value="<%=num%>">
 			<td>종료일</td>

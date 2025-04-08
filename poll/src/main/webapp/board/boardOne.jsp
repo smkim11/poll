@@ -38,7 +38,7 @@
 		<jsp:include page="/inc/nav.jsp"></jsp:include>
 	</div><br>
 	<h1>Board One</h1>
-	<table class="table table-striped table-bordered table-hover">
+	<table class="w-75 table table-striped table-bordered table-hover">
 		<tr>
 			<td>num</td>
 			<td><%=b.getNum() %></td>
