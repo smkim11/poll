@@ -13,8 +13,11 @@
   <li class="nav-item">
     <a class="nav-link" href="/poll/board/boardList.jsp">계층형 게시판</a>
   </li>
-   <li class="nav-item">
+  <li class="nav-item">
     <a class="nav-link" href="/poll/board/insertBoardForm.jsp">새글 입력</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/poll/imageBoard/insertImageForm.jsp">이미지 등록</a>
   </li>
 </ul>
 </nav>
